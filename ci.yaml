@@ -1,0 +1,24 @@
+ciTemplate: maven
+build:
+  environment:
+  - "MAVEN_OPTS='-Xms256m -Xmx512m'"
+  steps:
+  - "mvn clean install"
+  - "mvn test -Dmyarg"
+kaniko:
+  dockerHost: https://nexus3
+  credentialID: docker-credentials-id
+qs:
+  sonar:
+    enabled: true
+    host: https://sonar.host
+    credentialID: sonar-credentials-id
+  checkmarx:
+    enabled: true
+    host: https://checkmarx.host
+    credentialID: checkmarx-credentials-id
+deploy:
+  type: gke
+  cluster: local
+  image: nexus.image.url
+

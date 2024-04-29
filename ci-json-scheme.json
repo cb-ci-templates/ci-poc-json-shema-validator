@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "ciTemplate": {
+      "type": "string"
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["steps"]
+    },
+    "kaniko": {
+      "type": "object",
+      "properties": {
+        "dockerHost": {
+          "type": "string"
+        },
+        "credentialID": {
+          "type": "string"
+        }
+      },
+      "required": ["dockerHost", "credentialID"]
+    },
+    "qs": {
+      "type": "object",
+      "properties": {
+        "sonar": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "host": {
+              "type": "string"
+            },
+            "credentialID": {
+              "type": "string"
+            }
+          },
+          "required": ["enabled", "host", "credentialID"]
+        },
+        "checkmarx": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "host": {
+              "type": "string"
+            },
+            "credentialID": {
+              "type": "string"
+            }
+          },
+          "required": ["enabled", "host", "credentialID"]
+        }
+      }
+    },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "cluster": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "cluster", "image"]
+    }
+  },
+  "required": ["ciTemplate", "build", "kaniko", "qs", "deploy"]
+}
