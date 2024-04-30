@@ -11,6 +11,14 @@ def yamlText = new String(Files.readAllBytes(Paths.get("./ci.yaml")))
 
 // Parse YAML
 def configYaml = new Yaml().load(yamlText)
+
+configYaml.each { key, value ->
+       // Expose each key-value pair as properties
+       this."$key" = value
+}
+println "TEST KANIKO"
+println config.kaniko.dockerHost
+
 println configYaml.ciTemplate
 
 println configYaml.qs.sonar.enabled
