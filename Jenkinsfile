@@ -20,7 +20,7 @@ spec:
     stages {
         stage('Main') {
             steps {
-                sh "validate -s ci-json-scheme.json -d ci.yaml"
+                sh "ajv -s ci-json-scheme.json -d ci.yaml"
                 script {
                    def configYaml = readYaml file: 'ci.yaml'
                    def kanikoKeys = configYaml.kaniko.keySet()
