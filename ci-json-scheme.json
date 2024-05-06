@@ -27,6 +27,12 @@
     "kaniko": {
       "type": "object",
       "properties": {
+        "enabeld": {
+          "type": "boolean"
+        },
+        "credentialID": {
+          "type": "string"
+        },
         "registry_nexus": {
           "type": "object",
           "properties": {
@@ -34,11 +40,11 @@
               "type": "string",
               "format": "uri"
             },
-            "credentialID": {
+            "image": {
               "type": "string"
             }
           },
-          "required": ["dockerHost", "credentialID"]
+          "required": ["dockerHost", "image"]
         },
         "registry_gcr": {
           "type": "object",
@@ -47,14 +53,14 @@
               "type": "string",
               "format": "uri"
             },
-            "credentialID": {
+            "image": {
               "type": "string"
             }
           },
-          "required": ["dockerHost", "credentialID"]
+          "required": ["dockerHost", "image"]
         }
       },
-      "required": ["registry_nexus", "registry_gcr"]
+      "required": ["enabeld", "credentialID", "registry_nexus", "registry_gcr"]
     },
     "qs": {
       "type": "object",
