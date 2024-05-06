@@ -20,8 +20,9 @@ spec:
     stages {
         stage('Main') {
             steps {
+                sh "validate -s ci-json-scheme.json -d ci.yaml"
                 script {
-                   def configYaml = readYaml file: ci.yaml
+                   def configYaml = readYaml file: 'ci.yaml'
                    def kanikoKeys = configYaml.kaniko.keySet()
                    // Print the keys
                    println "PRINT Kaniko KEYS 1"
@@ -38,7 +39,6 @@ spec:
                           println "#############"
                     }
                 }
-
                 sh 'hostname'
             }
         }
