@@ -34,7 +34,7 @@ spec:
                           if ("$key".startsWith('registry_')){
                                  println "key startsWith $key"
                           }else{
-                                  println "key doesnt startsWith registry"
+                                  println "key doesn`t startsWith registry"
                            }
                           println "#############"
                     }

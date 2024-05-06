@@ -6,12 +6,14 @@ build:
   - "mvn clean install"
   - "mvn test -Dmyarg"
 kaniko:
+  enabeld: true
+  credentialID: docker-credentials-id
   registry_nexus:
     dockerHost: https://nexus3
-    credentialID: docker-credentials-id
+    image: nexus-image
   registry_gcr:
     dockerHost: https://gcr
-    credentialID: docker-credentials-id
+    image: gcr-image
 qs:
   sonar:
     enabled: true
