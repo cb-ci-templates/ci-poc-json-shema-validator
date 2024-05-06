@@ -1,8 +1,10 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "ciTemplate": {
-      "type": "string"
+      "type": "string",
+      "enum": ["maven"]
     },
     "build": {
       "type": "object",
@@ -20,19 +22,39 @@
           }
         }
       },
-      "required": ["steps"]
+      "required": ["environment", "steps"]
     },
     "kaniko": {
       "type": "object",
       "properties": {
-        "dockerHost": {
-          "type": "string"
+        "registry_nexus": {
+          "type": "object",
+          "properties": {
+            "dockerHost": {
+              "type": "string",
+              "format": "uri"
+            },
+            "credentialID": {
+              "type": "string"
+            }
+          },
+          "required": ["dockerHost", "credentialID"]
         },
-        "credentialID": {
-          "type": "string"
+        "registry_gcr": {
+          "type": "object",
+          "properties": {
+            "dockerHost": {
+              "type": "string",
+              "format": "uri"
+            },
+            "credentialID": {
+              "type": "string"
+            }
+          },
+          "required": ["dockerHost", "credentialID"]
         }
       },
-      "required": ["dockerHost", "credentialID"]
+      "required": ["registry_nexus", "registry_gcr"]
     },
     "qs": {
       "type": "object",
@@ -44,7 +66,8 @@
               "type": "boolean"
             },
             "host": {
-              "type": "string"
+              "type": "string",
+              "format": "uri"
             },
             "credentialID": {
               "type": "string"
@@ -59,7 +82,8 @@
               "type": "boolean"
             },
             "host": {
-              "type": "string"
+              "type": "string",
+              "format": "uri"
             },
             "credentialID": {
               "type": "string"
@@ -67,22 +91,38 @@
           },
           "required": ["enabled", "host", "credentialID"]
         }
-      }
+      },
+      "required": ["sonar", "checkmarx"]
     },
     "deploy": {
       "type": "object",
       "properties": {
-        "type": {
-          "type": "string"
+        "gke": {
+          "type": "object",
+          "properties": {
+            "cluster": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            }
+          },
+          "required": ["cluster", "image"]
         },
-        "cluster": {
-          "type": "string"
-        },
-        "image": {
-          "type": "string"
+        "ansible": {
+          "type": "object",
+          "properties": {
+            "cluster": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            }
+          },
+          "required": ["cluster", "image"]
         }
       },
-      "required": ["type", "cluster", "image"]
+      "required": ["gke", "ansible"]
     }
   },
   "required": ["ciTemplate", "build", "kaniko", "qs", "deploy"]

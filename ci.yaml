@@ -6,8 +6,12 @@ build:
   - "mvn clean install"
   - "mvn test -Dmyarg"
 kaniko:
-  dockerHost: https://nexus3
-  credentialID: docker-credentials-id
+  registry_nexus:
+    dockerHost: https://nexus3
+    credentialID: docker-credentials-id
+  registry_gcr:
+    dockerHost: https://gcr
+    credentialID: docker-credentials-id
 qs:
   sonar:
     enabled: true
@@ -18,7 +22,10 @@ qs:
     host: https://checkmarx.host
     credentialID: checkmarx-credentials-id
 deploy:
-  type: gke
-  cluster: local
-  image: nexus.image.url
+  gke:
+    cluster: local
+    image: nexus.image.url
+  ansible:
+    cluster: local
+    image: nexus.image.url
 

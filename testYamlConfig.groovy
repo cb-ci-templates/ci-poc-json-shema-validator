@@ -12,13 +12,44 @@ def yamlText = new String(Files.readAllBytes(Paths.get("./ci.yaml")))
 // Parse YAML
 def configYaml = new Yaml().load(yamlText)
 
+println "EXPOSE ALL KEYS TO PROPERTIES"
+
 configYaml.each { key, value ->
        // Expose each key-value pair as properties
        this."$key" = value
+       println this."$key"
+}
+
+
+def kanikoKeys = configYaml.kaniko.keySet()
+
+// Print the keys
+println "PRINT Kaniko KEYS 1"
+kanikoKeys.each { key ->
+       println "#############"
+       println(key)
+       println configYaml.kaniko."$key"
+       //configYaml.kaniko."$key".toString()
+       if ("$key".startsWith('registry_')){
+              println "key startsWith $key"
+       }else{
+              println "key doesnt startsWith registry"
+       }
+       println "#############"
 }
 println "TEST KANIKO"
-println config.kaniko.dockerHost
 
+println configYaml.kaniko.registry_gcr.dockerHost
+println configYaml.kaniko.registry_gcr.credentialID
+
+println "PRINT DEPLOY KEYS GKE"
+println configYaml.deploy.gke
+println configYaml.deploy.gke.cluster
+println configYaml.deploy.gke.image
+
+
+
+println "TEST CONFIGYAML"
 println configYaml.ciTemplate
 
 println configYaml.qs.sonar.enabled
@@ -41,12 +72,9 @@ configYaml.build.steps.collect { step ->
        println step
 }
 
-println configYaml.kaniko.dockerHost
-println configYaml.kaniko.credentialID
 
-println configYaml.deploy.type
-println configYaml.deploy.cluster
-println configYaml.deploy.image
+
+
 
 
 
