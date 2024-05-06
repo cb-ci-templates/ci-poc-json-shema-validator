@@ -21,18 +21,19 @@ spec:
         stage('Main') {
             steps {
                 sh "ajv -s ci-json-scheme.json -d ci.yaml"
+                //Move to shared Lib
                 script {
                    def configYaml = readYaml file: 'ci.yaml'
                    def kanikoKeys = configYaml.kaniko.keySet()
                    // Print the keys
-                   println "PRINT Kaniko KEYS 1"
+                   println "Kaniko keys"
                    kanikoKeys.each { key ->
                           println "#############"
                           println(key)
-                          println configYaml.kaniko."$key"
                           //configYaml.kaniko."$key".toString()
                           if ("$key".startsWith('registry_')){
                                  println "key startsWith $key"
+                                 println configYaml.kaniko."$key"
                           }else{
                                   println "key doesn`t startsWith registry"
                            }
