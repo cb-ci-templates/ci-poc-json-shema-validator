@@ -6,14 +6,10 @@ build:
   - "mvn clean install"
   - "mvn test -Dmyarg"
 kaniko:
-  enabeld: true
+  enabled: true
   credentialID: docker-credentials-id
-  registry_nexus:
-    dockerHost: https://nexus3
-    image: nexus-image
-  registry_gcr:
-    dockerHost: https://gcr
-    image: gcr-image
+  dockerHost: https://nexus3
+  image: nexus-image
 qs:
   sonar:
     enabled: true
@@ -27,7 +23,17 @@ deploy:
   gke:
     cluster: local
     image: nexus.image.url
+    credentialID: credentials-id
   ansible:
-    cluster: local
-    image: nexus.image.url
+    extra_vars:
+      KEY1: "VAL1"
+      KEY2: "enabled"
+      KEY3: "VAL3"
+    inventory: https://ansibleHost
+    jobTemplate: jobID
+    jobType: 'run'
+    throwExceptionWhenFail: false
+    towerCredentialsId: towerCredentialsID
+    towerLogLevel: false
+    towerServer: ansibletowername #references manage jenkins -> configure system -> ansible tower setup
 

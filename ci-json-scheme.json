@@ -27,40 +27,21 @@
     "kaniko": {
       "type": "object",
       "properties": {
-        "enabeld": {
+        "enabled": {
           "type": "boolean"
         },
         "credentialID": {
           "type": "string"
         },
-        "registry_nexus": {
-          "type": "object",
-          "properties": {
-            "dockerHost": {
-              "type": "string",
-              "format": "uri"
-            },
-            "image": {
-              "type": "string"
-            }
-          },
-          "required": ["dockerHost", "image"]
+        "dockerHost": {
+          "type": "string",
+          "format": "uri"
         },
-        "registry_gcr": {
-          "type": "object",
-          "properties": {
-            "dockerHost": {
-              "type": "string",
-              "format": "uri"
-            },
-            "image": {
-              "type": "string"
-            }
-          },
-          "required": ["dockerHost", "image"]
+        "image": {
+          "type": "string"
         }
       },
-      "required": ["enabeld", "credentialID", "registry_nexus", "registry_gcr"]
+      "required": ["enabled", "credentialID", "dockerHost", "image"]
     },
     "qs": {
       "type": "object",
@@ -111,21 +92,46 @@
             },
             "image": {
               "type": "string"
+            },
+            "credentialID": {
+              "type": "string"
             }
           },
-          "required": ["cluster", "image"]
+          "required": ["cluster", "image", "credentialID"]
         },
         "ansible": {
           "type": "object",
           "properties": {
-            "cluster": {
+            "extra_vars": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "inventory": {
+              "type": "string",
+              "format": "uri"
+            },
+            "jobTemplate": {
               "type": "string"
             },
-            "image": {
+            "jobType": {
+              "type": "string"
+            },
+            "throwExceptionWhenFail": {
+              "type": "boolean"
+            },
+            "towerCredentialsId": {
+              "type": "string"
+            },
+            "towerLogLevel": {
+              "type": "boolean"
+            },
+            "towerServer": {
               "type": "string"
             }
           },
-          "required": ["cluster", "image"]
+          "required": ["extra_vars", "inventory", "jobTemplate", "jobType", "throwExceptionWhenFail", "towerCredentialsId", "towerLogLevel", "towerServer"]
         }
       },
       "required": ["gke", "ansible"]

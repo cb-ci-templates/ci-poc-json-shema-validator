@@ -26,21 +26,13 @@ def kanikoKeys = configYaml.kaniko.keySet()
 // Print the keys
 println "PRINT Kaniko KEYS 1"
 kanikoKeys.each { key ->
-       println "#############"
        println(key)
        println configYaml.kaniko."$key"
-       //configYaml.kaniko."$key".toString()
-       if ("$key".startsWith('registry_')){
-              println "key startsWith $key"
-       }else{
-              println "key doesnt startsWith registry"
-       }
-       println "#############"
 }
 println "TEST KANIKO"
 
-println configYaml.kaniko.registry_gcr.dockerHost
-println configYaml.kaniko.registry_gcr.credentialID
+println configYaml.kaniko.dockerHost
+println configYaml.kaniko.credentialID
 
 println "PRINT DEPLOY KEYS GKE"
 println configYaml.deploy.gke
