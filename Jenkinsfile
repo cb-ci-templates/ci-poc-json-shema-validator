@@ -28,16 +28,9 @@ spec:
                    // Print the keys
                    println "Kaniko keys"
                    kanikoKeys.each { key ->
-                          println "#############"
                           println(key)
                           //configYaml.kaniko."$key".toString()
-                          if ("$key".startsWith('registry_')){
-                                 println "key startsWith $key"
-                                 println configYaml.kaniko."$key"
-                          }else{
-                                  println "key doesn`t startsWith registry"
-                           }
-                          println "#############"
+                          println configYaml.kaniko."$key"
                     }
                 }
                 sh 'hostname'
