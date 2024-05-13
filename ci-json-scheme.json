@@ -2,140 +2,68 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "ciTemplate": {
-      "type": "string",
-      "enum": ["maven"]
-    },
+    "ci_template": {"type": "string"},
+    "appname": {"type": "string"},
     "build": {
       "type": "object",
       "properties": {
         "environment": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": {"type": "string"}
         },
         "steps": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": {"type": "string"}
         }
-      },
-      "required": ["environment", "steps"]
+      }
     },
     "kaniko": {
       "type": "object",
       "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "credentialID": {
-          "type": "string"
-        },
-        "dockerHost": {
-          "type": "string",
-          "format": "uri"
-        },
-        "image": {
-          "type": "string"
-        }
-      },
-      "required": ["enabled", "credentialID", "dockerHost", "image"]
+        "enabled": {"type": "boolean"},
+        "credentialId": {"type": "string"},
+        "registry": {"type": "string"},
+        "image": {"type": "string"}
+      }
     },
     "qs": {
       "type": "object",
       "properties": {
+        "enabled": {"type": "boolean"},
         "sonar": {
           "type": "object",
           "properties": {
-            "enabled": {
-              "type": "boolean"
-            },
-            "host": {
-              "type": "string",
-              "format": "uri"
-            },
-            "credentialID": {
-              "type": "string"
-            }
-          },
-          "required": ["enabled", "host", "credentialID"]
+            "enabled": {"type": "boolean"},
+            "host": {"type": "string"},
+            "project_key": {"type": "string"},
+            "credentialId": {"type": "string"}
+          }
         },
         "checkmarx": {
           "type": "object",
           "properties": {
-            "enabled": {
-              "type": "boolean"
-            },
-            "host": {
-              "type": "string",
-              "format": "uri"
-            },
-            "credentialID": {
-              "type": "string"
-            }
-          },
-          "required": ["enabled", "host", "credentialID"]
+            "enabled": {"type": "boolean"},
+            "host": {"type": "string"},
+            "credentialId": {"type": "string"}
+          }
         }
-      },
-      "required": ["sonar", "checkmarx"]
+      }
     },
     "deploy": {
       "type": "object",
       "properties": {
+        "enabled": {"type": "boolean"},
         "gke": {
           "type": "object",
           "properties": {
-            "cluster": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string"
-            },
-            "credentialID": {
-              "type": "string"
-            }
-          },
-          "required": ["cluster", "image", "credentialID"]
-        },
-        "ansible": {
-          "type": "object",
-          "properties": {
-            "extra_vars": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "inventory": {
-              "type": "string",
-              "format": "uri"
-            },
-            "jobTemplate": {
-              "type": "string"
-            },
-            "jobType": {
-              "type": "string"
-            },
-            "throwExceptionWhenFail": {
-              "type": "boolean"
-            },
-            "towerCredentialsId": {
-              "type": "string"
-            },
-            "towerLogLevel": {
-              "type": "boolean"
-            },
-            "towerServer": {
-              "type": "string"
-            }
-          },
-          "required": ["extra_vars", "inventory", "jobTemplate", "jobType", "throwExceptionWhenFail", "towerCredentialsId", "towerLogLevel", "towerServer"]
+            "cluster_name": {"type": "string"},
+            "cluster_region": {"type": "string"},
+            "cluster_namespace": {"type": "string"},
+            "credentialId": {"type": "string"}
+          }
         }
-      },
-      "required": ["gke", "ansible"]
+      }
     }
   },
-  "required": ["ciTemplate", "build", "kaniko", "qs", "deploy"]
+  "required": ["ci_template", "appname", "build", "kaniko", "qs", "deploy"]
 }

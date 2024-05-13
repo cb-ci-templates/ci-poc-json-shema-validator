@@ -1,39 +1,65 @@
-ciTemplate: maven
-build:
-  environment:
-  - "MAVEN_OPTS='-Xms256m -Xmx512m'"
-  steps:
-  - "mvn clean install"
-  - "mvn test -Dmyarg"
-kaniko:
-  enabled: true
-  credentialID: docker-credentials-id
-  dockerHost: https://nexus3
-  image: nexus-image
-qs:
-  sonar:
-    enabled: true
-    host: https://sonar.host
-    credentialID: sonar-credentials-id
-  checkmarx:
-    enabled: true
-    host: https://checkmarx.host
-    credentialID: checkmarx-credentials-id
-deploy:
-  gke:
-    cluster: local
-    image: nexus.image.url
-    credentialID: credentials-id
-  ansible:
-    extra_vars:
-      KEY1: "VAL1"
-      KEY2: "enabled"
-      KEY3: "VAL3"
-    inventory: https://ansibleHost
-    jobTemplate: jobID
-    jobType: 'run'
-    throwExceptionWhenFail: false
-    towerCredentialsId: towerCredentialsID
-    towerLogLevel: false
-    towerServer: ansibletowername #references manage jenkins -> configure system -> ansible tower setup
+ci_template: maven
 
+appname: springboot
+
+build:
+
+  environment:
+
+    - "MAVEN_OPTS='-Xms256m -Xmx512m'"
+
+  steps:
+
+    - "mvn -version"
+
+    - "mvn -Dembedd-dependencies clean deploy"
+
+kaniko:
+
+  enabled: true
+
+  credentialId: ac-docker-config
+
+  #registry: nexus3.systems.uk.hsbc:18080
+
+  #image: com/hsbc/devops/jense/ci-springboot-simple-test
+
+  registry: gcr.io/hsbc-4323783-almjenkinsci-dev
+
+  image: ci-springboot-simple-test
+
+qs:
+
+  enabled: true
+
+  sonar:
+
+    enabled: true
+
+    host: https://devsupport-sonar.it.global.hsbc:9009/sonar
+
+    project_key: dragan-test-1
+
+    credentialId: db-sonar-token
+
+  checkmarx:
+
+    enabled: true
+
+    host: https://checkmarx.host
+
+    credentialId: checkmarx-credentials-id
+
+deploy:
+
+  enabled: true
+
+  gke:
+
+    cluster_name: cloudbees-ci
+
+    cluster_region: europe-west2
+
+    cluster_namespace: default
+
+    credentialId: gcloud-dev
