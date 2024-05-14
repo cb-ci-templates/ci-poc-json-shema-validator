@@ -1,65 +1,31 @@
 ci_template: maven
-
 appname: springboot
-
 build:
-
   environment:
-
     - "MAVEN_OPTS='-Xms256m -Xmx512m'"
-
   steps:
-
     - "mvn -version"
-
     - "mvn -Dembedd-dependencies clean deploy"
-
 kaniko:
-
   enabled: true
-
   credentialId: ac-docker-config
-
-  #registry: nexus3.systems.uk.hsbc:18080
-
-  #image: com/hsbc/devops/jense/ci-springboot-simple-test
-
-  registry: gcr.io/hsbc-4323783-almjenkinsci-dev
-
+  registry: gcr.io/testregistry
   image: ci-springboot-simple-test
-
 qs:
-
   enabled: true
-
   sonar:
-
     enabled: true
-
-    host: https://devsupport-sonar.it.global.hsbc:9009/sonar
-
-    project_key: dragan-test-1
-
+    host: https://sonar:9009/sonar
+    project_key: test-1
     credentialId: db-sonar-token
-
   checkmarx:
-
     enabled: true
-
     host: https://checkmarx.host
-
     credentialId: checkmarx-credentials-id
-
 deploy:
-
   enabled: true
-
   gke:
-
     cluster_name: cloudbees-ci
-
     cluster_region: europe-west2
-
     cluster_namespace: default
-
     credentialId: gcloud-dev
