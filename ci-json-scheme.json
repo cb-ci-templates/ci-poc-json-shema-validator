@@ -15,7 +15,8 @@
           "type": "array",
           "items": {"type": "string"}
         }
-      }
+      },
+      "required" : ["environment","steps"]
     },
     "kaniko": {
       "type": "object",

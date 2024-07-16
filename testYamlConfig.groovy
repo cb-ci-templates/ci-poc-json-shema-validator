@@ -27,17 +27,19 @@ def kanikoKeys = configYaml.kaniko.keySet()
 println "PRINT Kaniko KEYS 1"
 kanikoKeys.each { key ->
        println(key)
-       println configYaml.kaniko."$key"
+       println configYaml.kaniko."${key}"
 }
 println "TEST KANIKO"
 
-println configYaml.kaniko.dockerHost
-println configYaml.kaniko.credentialID
+println configYaml.kaniko.registry
+println configYaml.kaniko.credentialId
+
 
 println "PRINT DEPLOY KEYS GKE"
-println configYaml.deploy.gke
-println configYaml.deploy.gke.cluster
-println configYaml.deploy.gke.image
+if (configYaml.deploy.gke != null){
+       println configYaml.deploy.gke
+       println configYaml.deploy.gke.cluster_name
+}
 
 
 
