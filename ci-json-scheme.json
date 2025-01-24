@@ -4,6 +4,18 @@
   "properties": {
     "ci_template": {"type": "string"},
     "appname": {"type": "string"},
+    "email": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    },
+    "ipAddress": {
+      "type": "string",
+      "pattern": "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+    },
+    "hostName": {
+      "type": "string",
+      "pattern": "^(?!-)(?:[A-Za-z0-9-]{1,63}\\.)+[A-Za-z0-9-]{2,63}(?<=\\S)$"
+    },
     "build": {
       "type": "object",
       "properties": {
@@ -26,45 +38,9 @@
         "registry": {"type": "string"},
         "image": {"type": "string"}
       }
-    },
-    "qs": {
-      "type": "object",
-      "properties": {
-        "enabled": {"type": "boolean"},
-        "sonar": {
-          "type": "object",
-          "properties": {
-            "enabled": {"type": "boolean"},
-            "host": {"type": "string"},
-            "project_key": {"type": "string"},
-            "credentialId": {"type": "string"}
-          }
-        },
-        "checkmarx": {
-          "type": "object",
-          "properties": {
-            "enabled": {"type": "boolean"},
-            "host": {"type": "string"},
-            "credentialId": {"type": "string"}
-          }
-        }
-      }
-    },
-    "deploy": {
-      "type": "object",
-      "properties": {
-        "enabled": {"type": "boolean"},
-        "gke": {
-          "type": "object",
-          "properties": {
-            "cluster_name": {"type": "string"},
-            "cluster_region": {"type": "string"},
-            "cluster_namespace": {"type": "string"},
-            "credentialId": {"type": "string"}
-          }
-        }
-      }
     }
   },
-  "required": ["ci_template", "appname", "build", "kaniko", "qs", "deploy"]
+  "required": ["ci_template", "appname","email","hostName","ipAddress", "build", "kaniko"]
 }
+
+

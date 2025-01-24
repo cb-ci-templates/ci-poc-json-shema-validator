@@ -1,5 +1,10 @@
 ci_template: maven
-appname: springboot
+appname: myappname
+email: user@example.com
+hostName: foo.bar.com
+ipAddress: 127.0.0.1
+# Wrong pattern to force validation error
+# ipAddress: 12fhvdfkvd7.0.0.1
 build:
   environment:
     - "MAVEN_OPTS='-Xms256m -Xmx512m'"
@@ -10,22 +15,4 @@ kaniko:
   enabled: true
   credentialId: ac-docker-config
   registry: gcr.io/testregistry
-  image: ci-springboot-simple-test
-qs:
-  enabled: true
-  sonar:
-    enabled: true
-    host: https://sonar:9009/sonar
-    project_key: test-1
-    credentialId: db-sonar-token
-  checkmarx:
-    enabled: true
-    host: https://checkmarx.host
-    credentialId: checkmarx-credentials-id
-deploy:
-  enabled: true
-  gke:
-    cluster_name: cloudbees-ci
-    cluster_region: europe-west2
-    cluster_namespace: default
-    credentialId: gcloud-dev
+  image: myimagename

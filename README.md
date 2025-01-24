@@ -15,6 +15,10 @@
 * https://github.com/3scale-archive/docker-ajv
 * https://www.npmjs.com/package/ajv-cli
 
+# Test
+
 ```
 docker run  -v $(PWD):/data 3scale/ajv validate -s ci-json-scheme.json -d ci.yaml
 ```
+
+Update the ci.yaml and break for example the IPAddress or hostName pattern to see the schema error
